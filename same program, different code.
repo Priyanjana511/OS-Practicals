@@ -1,1 +1,35 @@
 nano program1_same_code.py
+python3 program1_same_code.py
+
+(Ek terminal open hoga ye paste krna hai)
+
+import os
+import time
+
+def child_task():
+    print(f"[CHILD PID {os.getpid()}] Starting child-specific task")
+    for i in range(3):
+        print(f"[CHILD PID {os.getpid()}] Step {i}")
+        time.sleep(1)
+    print(f"[CHILD PID {os.getpid()}] Child finished.\n")
+    os._exit(5)    # Child exits with status code 5
+
+def parent_task(child_pid):
+    print(f"[PARENT PID {os.getpid()}] Starting parent-specific task")
+    for i in range(2):
+        print(f"[PARENT PID {os.getpid()}] Step {i}")
+        time.sleep(1)
+    print(f"[PARENT PID {os.getpid()}] Parent finished its work.\n")
+
+pid = os.fork()
+
+if pid == 0:
+    # CHILD executes a different code block
+    child_task()
+else:
+    # PARENT executes its own separate task
+    parent_task(pid)
+
+(CTRL+O -> Press Enter -> CTRL+X)
+
+python3 program2_diff_code.py
