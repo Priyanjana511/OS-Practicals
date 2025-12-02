@@ -1,0 +1,75 @@
+# Non-Preemptive Priority Scheduling in Python
+
+def priority_scheduling(processes, burst_time, priority):
+    n = len(processes)
+
+    # Combine process info into a list of tuples:
+    # (process_name, burst_time, priority)
+    proc_info = list(zip(processes, burst_time, priority))
+
+    # Sort by PRIORITY (lower number = higher priority)
+    proc_info.sort(key=lambda x: x[2])
+
+    waiting_time = [0] * n
+    turnaround_time = [0] * n
+
+    # Waiting time calculation
+    waiting_time[0] = 0
+    for i in range(1, n):
+        waiting_time[i] = waiting_time[i - 1] + proc_info[i - 1][1]
+
+    # Turnaround time calculation
+    for i in range(n):
+        turnaround_time[i] = proc_info[i][1] + waiting_time[i]
+
+    # Display results
+    print("\nPROCESS\tBT\tPRIORITY\tWT\tTAT")
+    total_wt = 0
+    total_tat = 0
+
+    for i in range(n):
+        p, bt, pr = proc_info[i]
+        wt = waiting_time[i]
+        tat = turnaround_time[i]
+
+        total_wt += wt
+        total_tat += tat
+
+        print(f"{p}\t{bt}\t{pr}\t\t{wt}\t{tat}")
+
+    print("\nAverage Waiting Time =", total_wt / n)
+    print("Average Turnaround Time =", total_tat / n)
+
+
+# Driver Code
+if __name__ == "__main__":
+    n = int(input("Enter number of processes: "))
+    
+    processes = [f"P{i+1}" for i in range(n)]
+    burst_time = []
+    priority = []
+
+    print("\nEnter Burst Time and Priority for each process:")
+    print("(Lower priority number means higher priority)\n")
+
+    for i in range(n):
+        bt = int(input(f"BT for P{i+1}: "))
+        pr = int(input(f"Priority for P{i+1}: "))
+        burst_time.append(bt)
+        priority.append(pr)
+        print()
+
+    priority_scheduling(processes, burst_time, priority)
+
+#SAMPLE INPUT
+#Enter number of processes: 4
+#Enter Burst Time and Priority:
+#(Lower number = Higher priority)
+#BT for P1: 10
+#Priority for P1: 3
+#BT for P2: 1
+#Priority for P2: 1
+#BT for P3: 2
+#Priority for P3: 4
+#BT for P4: 1
+#Priority for P4: 2
