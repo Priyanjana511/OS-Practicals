@@ -1,0 +1,33 @@
+nano program3_parent_waits.py
+python3 program3_parent_waits.py
+
+(ek terminal open hoga ye paste krna hai)
+
+import os
+import time
+
+pid = os.fork()
+
+if pid == 0:
+    # CHILD PROCESS
+    print(f"[CHILD PID {os.getpid()}] Child started.")
+    time.sleep(3)
+    print(f"[CHILD PID {os.getpid()}] Child work done. Exiting with code 7.")
+    os._exit(7)
+
+else:
+    # PARENT PROCESS
+    print(f"[PARENT PID {os.getpid()}] Parent waiting for child {pid}...")
+    child_pid, status = os.waitpid(pid, 0)
+
+    if os.WIFEXITED(status):
+        print(f"[PARENT] Child {child_pid} exited normally with code {os.WEXITSTATUS(status)}")
+    else:
+        print(f"[PARENT] Child ended unexpectedly")
+
+    print("[PARENT] Parent now exits AFTER child.")
+
+(CTRL+O -> Press Enter -> CTRL+X)
+
+python3 program3_parent_waits.py
+
