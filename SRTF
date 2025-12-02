@@ -1,0 +1,87 @@
+# Shortest Remaining Time First (SRTF) CPU Scheduling Algorithm in Python
+
+def srtf(processes, arrival_time, burst_time):
+    n = len(processes)
+
+    # Remaining burst time
+    rt = burst_time.copy()
+
+    complete = 0   
+    t = 0          
+    minm = 999999  
+    shortest = 0   
+    check = False  
+
+    waiting_time = [0] * n
+    turnaround_time = [0] * n
+
+    while complete != n:
+
+        # Find process with minimum remaining time at every time 't'
+        for j in range(n):
+            if arrival_time[j] <= t and rt[j] < minm and rt[j] > 0:
+                shortest = j
+                minm = rt[j]
+                check = True
+
+        if not check:  
+            t += 1
+            continue
+
+        # Reduce remaining burst time of the chosen process
+        rt[shortest] -= 1
+        minm = rt[shortest]
+
+        if minm == 0:
+            minm = 999999
+
+        # If process is finished
+        if rt[shortest] == 0:
+            complete += 1
+            check = False
+
+            finish_time = t + 1
+
+            # Waiting time = finish time - bt - at
+            waiting_time[shortest] = finish_time - burst_time[shortest] - arrival_time[shortest]
+
+            if waiting_time[shortest] < 0:
+                waiting_time[shortest] = 0
+
+        t += 1
+
+    # Calculate Turnaround Time
+    for i in range(n):
+        turnaround_time[i] = burst_time[i] + waiting_time[i]
+
+    # Print results
+    print("\nPROCESS\tAT\tBT\tWT\tTAT")
+    total_wt = 0
+    total_tat = 0
+
+    for i in range(n):
+        total_wt += waiting_time[i]
+        total_tat += turnaround_time[i]
+        print(f"{processes[i]}\t{arrival_time[i]}\t{burst_time[i]}\t{waiting_time[i]}\t{turnaround_time[i]}")
+
+    print("\nAverage Waiting Time =", total_wt / n)
+    print("Average Turnaround Time =", total_tat / n)
+
+
+# Driver Code
+if __name__ == "__main__":
+    n = int(input("Enter number of processes: "))
+
+    processes = [f"P{i+1}" for i in range(n)]
+    arrival_time = []
+    burst_time = []
+
+    print("\nEnter Arrival Time and Burst Time for each process:\n")
+    for i in range(n):
+        at = int(input(f"AT for P{i+1}: "))
+        bt = int(input(f"BT for P{i+1}: "))
+        arrival_time.append(at)
+        burst_time.append(bt)
+        print()
+
+    srtf(processes, arrival_time, burst_time)
