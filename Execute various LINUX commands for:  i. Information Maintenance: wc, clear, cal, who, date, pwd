@@ -1,0 +1,13 @@
+echo "This is a sample file" > filename.txt
+cat filename.txt
+cat > filename.txt
+(Ctrl+D press) we have to press it
+wc -l filename.txt
+wc -w filename.txt
+clear
+cal
+(if cal word is not working then type- sudo apt install ncal)
+cal 2025
+who
+date
+pwd
