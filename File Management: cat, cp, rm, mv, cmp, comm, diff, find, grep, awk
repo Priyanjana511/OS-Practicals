@@ -1,0 +1,14 @@
+echo "Hello World" file1.txt
+cat file1.txt
+cat > file1.txt
+(or cat > file2.txt)
+cp file1.txt file2.txt
+rm file1.txt
+mv oldname.txt newname.txt
+mv file.txt /home/user/Desktop/
+cmp file1.txt file2.txt
+comm file1.txt file2.txt
+diff file1.txt file2.txt
+find /home -name "file1.txt"
+grep "hello" file1.txt
+awk '{print $1}' file.txt
