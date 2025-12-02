@@ -1,0 +1,29 @@
+nano program1_same_code.py
+python3 program1_same_code.py
+
+(ek file open hoga jisme ye paste krna hai)
+
+import os
+import time
+
+def work():
+    print(f"[PID {os.getpid()}] Same code running...")
+    for i in range(3):
+        print(f"[PID {os.getpid()}] i = {i}")
+        time.sleep(1)
+    print(f"[PID {os.getpid()}] Work finished.\n")
+
+pid = os.fork()
+
+# BOTH parent and child execute the SAME function
+work()
+
+# Identify parent & child
+if pid == 0:
+    print(f"[PID {os.getpid()}] I am CHILD (pid == 0)")
+else:
+    print(f"[PID {os.getpid()}] I am PARENT (child pid = {pid})")
+
+(CTRL+O -> Press Enter -> CTRL+X)
+
+python3 program1_same_code.py
