@@ -1,0 +1,29 @@
+ps
+ps -aux
+echo $$
+sleep 120
+ps -aux | grep firefox
+12345  firefox
+kill 12345
+kill -9 12345
+nano fork_demo.py
+(Paste the below code in the file that will open)
+import os
+
+print("Parent PID:", os.getpid())
+
+pid = os.fork()
+
+if pid == 0:
+    # Child process
+    print("Child Process PID:", os.getpid())
+    print("Child's Parent PID:", os.getppid())
+else:
+    # Parent process
+    print("Parent created a child with PID:", pid)
+    print("Parent Process PID:", os.getpid())
+
+(To Save - CTRL + O → ENTER → CTRL + X)
+
+python3 fork_demo.py
+
