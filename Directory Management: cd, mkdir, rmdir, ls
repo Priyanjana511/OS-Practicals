@@ -1,0 +1,8 @@
+ls
+ls -l
+ls -a
+pwd
+cd myfolder
+cd ..
+mkdir myfolder
+rmdir myfolder
