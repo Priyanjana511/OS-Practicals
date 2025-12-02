@@ -1,0 +1,32 @@
+# Create file
+touch myfile.txt
+ls -l myfile.txt
+
+# chmod symbolic
+chmod u+x myfile.txt
+chmod g-w myfile.txt
+chmod o=r myfile.txt
+
+# chmod numeric
+chmod 644 myfile.txt
+
+# Create script file
+touch myscript.sh
+chmod 755 myscript.sh
+ls -l myscript.sh
+
+# Check current user
+whoami
+
+# chown owner only
+sudo chown tempadmin myfile.txt
+
+# chown owner + group
+sudo chown tempadmin:tempadmin myfile.txt
+
+# chgrp
+sudo chgrp tempadmin myfile.txt
+
+# Final status
+ls -l myfile.txt
+
