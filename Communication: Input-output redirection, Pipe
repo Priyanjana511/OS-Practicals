@@ -1,0 +1,8 @@
+echo "apple" > fruits.txt
+echo "banana" >> fruits.txt
+ls > list.txt
+echo "grapes" >> fruits.txt
+sort < fruits.txt
+ls | grep .txt
+ps -aux | wc -l
+cat fruits.txt | sort | uniq
